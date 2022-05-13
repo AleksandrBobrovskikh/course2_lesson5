@@ -3,12 +3,12 @@ package com.geekbrains;
 import java.util.Arrays;
 
 public class App {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         firstMethod();
         secondMethod();
     }
 
-    private static void secondMethod() throws InterruptedException {
+    private static void secondMethod() {
         int size = 10_000_000;
         int half = size / 2;
         float[] arr = new float[size];
@@ -32,8 +32,12 @@ public class App {
 
         t1.start();
         t2.start();
-        t1.join();
-        t2.join();
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         float[] goodArr = new float[size];
         System.arraycopy(leftHalf, 0, goodArr, 0, half);
